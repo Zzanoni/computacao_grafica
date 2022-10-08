@@ -17,7 +17,7 @@ Para a primeira atividade da matéria de Computação Gráfica da UFABC, foi uti
 
 Para construção do programa, foram utilizadas configurações de janela e fonte similares aos exemplos vistos e testados em sala de aula, visto que o núcleo do jogo proposto permitia a manutenção do padrão. Adicionalmente, o código-fonte do jogo está dividido em três arquivos: main.cpp, window.cpp e window.hpp.
 
-O jogo, uma vez executado, pode possuir 3 estados, sendo o play (quando o jogo ainda não tem um resultado), win (quando o jogador vence encontrando o tesouro) e lose (quando o jogador não encontra o tesouro).
+Agora olhemos para o arquivo window.cpp, onde estão presentes as funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode possuir 3 estados, sendo o play (quando o jogo ainda não tem um resultado), win (quando o jogador vence encontrando o tesouro) e lose (quando o jogador não encontra o tesouro).
 
 ```c++
 std::string text;
@@ -56,5 +56,7 @@ else {
 ```
 
 Por fim, independente do resultado, o jogador poderá recomeçar o jogo e tentar acertar novamente a localização do tesouro.
+
+Os demais arquivos (main.cpp e window.hpp), por sua vez, serão bem mais enxutos e serão responsáveis pela configuração do tamanho da janela e do tabuleiro, por exemplo, além de chamarem as funções presentes no window.cpp.
 
 [Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade1/abcg/public/index.html) para jogar. 
