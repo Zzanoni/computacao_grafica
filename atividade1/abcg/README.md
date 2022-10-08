@@ -20,16 +20,37 @@ Para construção do programa, foram utilizadas configurações de janela e font
 O jogo, uma vez executado, pode possuir 3 estados, sendo o play (quando o jogo ainda não tem um resultado), win (quando o jogador vence encontrando o tesouro) e lose (quando o jogador não encontra o tesouro).
 
 ```c++
-      std::string text;
-      switch (m_gameState) {
-      case GameState::Play:
-        text = fmt::format("Encontre o X do tesouro");
-        break;
-      case GameState::Win:
-        text = "Muito bem!";
-        break;
-      case GameState::Lose:
-        text = "Errou! Tente outra vez.";
-        break;
-      }
+std::string text;
+switch (m_gameState) {
+case GameState::Play:
+  text = fmt::format("Encontre o X do tesouro");
+  break;
+case GameState::Win:
+  text = "Muito bem!";
+  break;
+case GameState::Lose:
+  text = "Errou! Tente outra vez.";
+  break;
+}
+```
+
+No início do jogo, é utilizada a função rand() para determinar, de forma aleatório, onde o tesouro ficará localizado na matriz 4 x 4.
+
+```c++
+int col = rand() % 4;
+int row = rand() % 4;
+```
+
+Feito isso, o tabuleiro está pronto para interação do jogador, onde o mesmo terá que escolher uma casa da tabuleiro (matriz) 4x4. Se ele acertar, aparece um X na casa em questão, caso contrário aparece um O na casa escolhida e a localização do tesouro é revelada em seguida.
+
+```c++
+if (offset == (row * m_N + col)){
+  m_board.at(offset) = 'X';
+  m_gameState = GameState::Win;
+}
+else {
+  m_board.at(offset)='O';
+  m_board.at(col * m_N + row)='X';
+  m_gameState = GameState::Lose;
+}
 ```
