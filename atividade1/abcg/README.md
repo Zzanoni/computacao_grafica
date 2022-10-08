@@ -59,4 +59,11 @@ Por fim, independente do resultado, o jogador poderá recomeçar o jogo e tentar
 
 Os demais arquivos (main.cpp e window.hpp), por sua vez, serão bem mais enxutos e serão responsáveis pela configuração do tamanho da janela e do tabuleiro, por exemplo, além de chamarem as funções presentes no window.cpp.
 
+```c++
+Window window;
+    window.setWindowSettings(
+        // Dimensoes da janela e nome da aplicacao
+        {.width = 600, .height = 600, .title = "Atividade 1"});
+```
+
 [Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade1/abcg/public/index.html) para jogar. 
