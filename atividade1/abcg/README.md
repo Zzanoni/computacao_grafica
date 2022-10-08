@@ -41,7 +41,7 @@ int col = rand() % 4;
 int row = rand() % 4;
 ```
 
-Feito isso, o tabuleiro está pronto para interação do jogador, onde o mesmo terá que escolher uma casa da tabuleiro (matriz) 4x4. Se ele acertar, aparece um X na casa em questão, caso contrário aparece um O na casa escolhida e a localização do tesouro é revelada em seguida.
+Feito isso, o tabuleiro está pronto para interação do jogador, onde o mesmo terá que escolher uma casa da tabuleiro (matriz) 4x4. Se ele acertar, aparece um X na casa em questão e o jogo recebe o estado de win, caso contrário aparece um O na casa escolhida, a localização do tesouro é revelada em seguida e o jogo recebe o estado de lose.
 
 ```c++
 if (offset == (row * m_N + col)){
@@ -54,3 +54,5 @@ else {
   m_gameState = GameState::Lose;
 }
 ```
+
+Por fim, independente do resultado, o jogador poderá recomeçar o jogo e tentar acertar novamente a localização do tesouro.
