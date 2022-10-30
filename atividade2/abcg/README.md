@@ -1,14 +1,15 @@
-# Computação Gráfica - Atividade 3
+# Computação Gráfica - Atividade 2
 
 Nome: Lucas Zanoni de Oliveira
 RA: 11056816
 
-![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
-
+![Bubbles](https://user-images.githubusercontent.com/27233049/198890613-5300ca1a-48b2-4b0e-8026-6d23fbbcd5cc.png)
 
 ## Funcionamento
 
-O jogo construído de Caça do Tesouro consiste na ideia de encontrar o tesouro, demarcado por um X, em um terreno desconhecido. 
+O jogo construído denominado de 3 Bubbles consiste na ideia de conseguir pegar uma bolha através de uma plataforma que se move horizontalmente.
+
+![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
 
 Sabendo disso, é apresentado ao jogador um tabuleiro 4x4 representando a área em que o tesouro pode estar enterrado, onde possuirá apenas uma chance de descobrir onde ele está.
 
