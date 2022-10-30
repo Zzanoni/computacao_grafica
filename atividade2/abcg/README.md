@@ -7,11 +7,11 @@ RA: 11056816
 
 ## Funcionamento
 
-O jogo construído denominado de 3 Bubbles consiste na ideia de conseguir pegar uma bolha através de uma plataforma que se move horizontalmente.
+O jogo construído, denominado de 3 Bubbles, consiste na ideia de conseguir pegar uma bolha através de uma plataforma que se move horizontalmente.
 
 ![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
 
-Sabendo disso, é apresentado ao jogador um tabuleiro 4x4 representando a área em que o tesouro pode estar enterrado, onde possuirá apenas uma chance de descobrir onde ele está.
+Sabendo disso, aparecem 3 bolhas na tela e o usuário precisa movimentar a plataforma até que alguma das bolhas caia na mesma.
 
 ## Implementação
 
