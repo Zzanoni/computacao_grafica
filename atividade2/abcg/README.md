@@ -1,4 +1,4 @@
-# Computação Gráfica - Atividade 1
+# Computação Gráfica - Atividade 3
 
 Nome: Lucas Zanoni de Oliveira
 RA: 11056816
