@@ -3,7 +3,8 @@
 Nome: Lucas Zanoni de Oliveira
 RA: 11056816
 
-![alt text](https://www.nattrip.com.br/wp-content/uploads/2017/07/team-building-caca-ao-tesouro-01-1500x430.jpg)
+![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
+
 
 ## Funcionamento
 
