@@ -91,4 +91,4 @@ window.setWindowSettings({
     });
 ```
 
-[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade1/abcg/public/index.html) para jogar. 
+[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade2/abcg/public/index.html) para jogar. 
