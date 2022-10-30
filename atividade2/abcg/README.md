@@ -11,61 +11,84 @@ O jogo construído, denominado de 3 Bubbles, consiste na ideia de conseguir pega
 
 ![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
 
-Sabendo disso, aparecem 3 bolhas na tela e o usuário precisa movimentar a plataforma até que alguma das bolhas caia na mesma.
+Sabendo disso, aparecem 3 bolhas na tela e o usuário precisa movimentar a plataforma, por meio das setas do teclado, até que alguma das bolhas caia na mesma.
 
 ## Implementação
 
-Para a primeira atividade da matéria de Computação Gráfica da UFABC, foi utilizada a interface gráfica da biblioteca Dear ImGui, além da ABCg e do SDK Emscripten, conforme apresentado no decorrer das aulas ministradas.
+Para a segunda atividade da matéria de Computação Gráfica da UFABC, foi utilizada a interface gráfica da biblioteca Dear ImGui, além da ABCg e do SDK Emscripten, conforme apresentado no decorrer das aulas ministradas.
 
-Para construção do programa, foram utilizadas configurações de janela e fonte similares aos exemplos vistos e testados em sala de aula, visto que o núcleo do jogo proposto permitia a manutenção do padrão. Adicionalmente, o código-fonte do jogo está dividido em três arquivos: main.cpp, window.cpp e window.hpp.
+Para construção do programa, foram utilizadas configurações de janela e fonte similares aos exemplos vistos e testados em sala de aula, visto que o núcleo do jogo proposto permitia a manutenção do padrão. Adicionalmente, o código-fonte do jogo está dividido em oito arquivos: main.cpp, window.cpp, window.hpp, balls.hpp, balls.cpp, platform.hpp, platform.cpp e gamedata.hpp.
 
-Agora olhemos para o arquivo window.cpp, onde estão presentes as funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode possuir 3 estados, sendo o play (quando o jogo ainda não tem um resultado), win (quando o jogador vence encontrando o tesouro) e lose (quando o jogador não encontra o tesouro).
+Inicialmente, temos no arquivo gamedata.hpp informações básicas como os possíveis estados do jogo (vitória e jogando) e as ações permitidas (direita e esquerda).
 
 ```c++
-std::string text;
-switch (m_gameState) {
-case GameState::Play:
-  text = fmt::format("Encontre o X do tesouro");
-  break;
-case GameState::Win:
-  text = "Muito bem!";
-  break;
-case GameState::Lose:
-  text = "Errou! Tente outra vez.";
-  break;
-}
+  enum class Input { Right, Left};
+  enum class State { Playing, Win };
 ```
 
-No início do jogo, é utilizada a função rand() para determinar, de forma aleatório, onde o tesouro ficará localizado na matriz 4 x 4.
+Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode receber duas ações do usuário: ir para a direira e ir para a esquerda.
 
 ```c++
-int col = rand() % 4;
-int row = rand() % 4;
+void Window::onEvent(SDL_Event const &event) {
+  // Ações do teclado
+  if (event.type == SDL_KEYDOWN) {
+    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+      m_gameData.m_input.set(gsl::narrow<size_t>(Input::Left));
+    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+      m_gameData.m_input.set(gsl::narrow<size_t>(Input::Right));
+  }
+  if (event.type == SDL_KEYUP) {
+    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
+      m_gameData.m_input.reset(gsl::narrow<size_t>(Input::Left));
+    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
+      m_gameData.m_input.reset(gsl::narrow<size_t>(Input::Right));
+  }
+}
+```
+Além disso, é neste arquivo onde encontramos a condição de vitória, ocorrida quando a bolha repousa sobre a plataforma.
+
+```c++
+// Açao quando colide a bola e a plataforma
+    if (distance < m_platform.m_scale * 0.6f + asteroid.m_scale * 0.1f) {
+      m_gameData.m_state = State::Win;
 ```
 
-Feito isso, o tabuleiro está pronto para interação do jogador, onde o mesmo terá que escolher uma casa da tabuleiro (matriz) 4x4. Se ele acertar, aparece um X na casa em questão e o jogo recebe o estado de win, caso contrário aparece um O na casa escolhida, a localização do tesouro é revelada em seguida e o jogo recebe o estado de lose.
+Os arquivos balls.cpp e platform.cpp são importantes por serem responsáveis por possuírem a composição da pltaforma e das bolhas, principais elementos do jogo. No primeiro arquivo, encontramos a configuração da quantidade de bolhas e sua velocidade/direção.
 
 ```c++
-if (offset == (row * m_N + col)){
-  m_board.at(offset) = 'X';
-  m_gameState = GameState::Win;
-}
-else {
-  m_board.at(offset)='O';
-  m_board.at(col * m_N + row)='X';
-  m_gameState = GameState::Lose;
-}
+  m_balls.resize(3);
 ```
 
-Por fim, independente do resultado, o jogador poderá recomeçar o jogo e tentar acertar novamente a localização do tesouro.
+```c++
+  glm::vec2 const direction{0.0f, -0.1f};
+  ball.m_velocity = glm::normalize(direction) / 4.0f;
+```
 
-Os demais arquivos (main.cpp e window.hpp), por sua vez, serão bem mais enxutos e serão responsáveis pela configuração do tamanho da janela e do tabuleiro, por exemplo, além de chamarem as funções presentes no window.cpp.
+Por outro lado, no segundo arquivos teremos as dimensões da plataforma e uma série de outras configurações envolvendo o EBO, VBO e VAO.
+
 
 ```c++
-Window window;
-    window.setWindowSettings(
-        // Dimensoes da janela e nome da aplicacao
-        {.width = 600, .height = 600, .title = "Atividade 1"});
+std::array positions{
+      glm::vec2{+14.f, -2.f}, glm::vec2{+14.f, +2.f},
+      glm::vec2{-14.f, +2.f}, glm::vec2{-14.f, -2.f},
+      glm::vec2{+0.f, +2.f}
+      };
+  for (auto &position : positions) {
+    position /= glm::vec2{14.f, 14.f};
+  }
+  std::array const indices{0, 1, 2, 3, 4, 0, 3, 2, 1};
+```
+
+Os demais arquivos (main.cpp, window.hpp, balls.hpp e plarform.hpp), por sua vez, serão bem mais enxutos e serão responsáveis pela configuração do tamanho da janela, por exemplo.
+
+```c++
+window.setWindowSettings({
+        .width = 500,
+        .height = 500,
+        .showFPS = false,
+        .showFullscreenButton = false,
+        .title = "Atividade 2",
+    });
 ```
 
 [Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade1/abcg/public/index.html) para jogar. 
