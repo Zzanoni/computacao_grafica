@@ -94,4 +94,4 @@ Por fim, os arquivos camera.hpp e camera.cpp possuem as configrações da movime
   transform = glm::translate(transform, -m_eye);
 ```
 
-[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade3/abcg/public/index.html) para jogar. 
+[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade3/abcg/public/index.html) para acessar o programa. 
