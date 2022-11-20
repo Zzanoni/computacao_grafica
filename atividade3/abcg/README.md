@@ -25,7 +25,7 @@ Inicialmente, temos no arquivo main.cpp informações básicas como o tamanho da
         .title = "Confissão",
 ```
 
-Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. Uma vez executado, pode receber seis ações do usuário: ir para a direira. ir para a esquerda, ir para frente, ir para trás, rodar no sentido horário e rodar no sentido antihorário.
+Agora olhemos para o arquivo window.cpp e window.hpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. Uma vez executado, pode receber seis ações do usuário: ir para a direira. ir para a esquerda, ir para frente, ir para trás, rodar no sentido horário e rodar no sentido antihorário.
 
 ```c++
 void Window::onEvent(SDL_Event const &event) {
@@ -58,42 +58,40 @@ Além disso, é neste arquivo onde encontramos a inserção do modelo 3D da sala
   model = glm::scale(model, glm::vec3(0.65f));
 ```
 
-Os arquivos balls.cpp e platform.cpp são importantes por serem responsáveis por possuírem a composição da pltaforma e das bolhas, principais elementos do jogo. No primeiro arquivo, encontramos a configuração da quantidade de bolhas e sua velocidade/direção.
+Os arquivos ground.cpp e ground.hpp são importantes por serem responsáveis pela construção do piso em que o modelo é inserido. No primeiro arquivo, encontramos a configuração dos pisos e sua disposição.
 
 ```c++
-  m_balls.resize(3);
+// Desenho dos blocos do piso
+  std::array<glm::vec3, 4> vertices{{{-0.5f, 0.0f, +0.5f},
+                                     {-0.5f, 0.0f, -0.5f},
+                                     {+0.5f, 0.0f, +0.5f}}};
 ```
 
+Por outro lado, no segundo arquivos temos a composição da classe relacionado.
+
+
 ```c++
-  glm::vec2 const direction{0.0f, -0.1f};
-  ball.m_velocity = glm::normalize(direction) / 4.0f;
+class Ground {
+public:
+  void create(GLuint program);
+  void paint();
+  void destroy();
+
+private:
+  GLuint m_VAO{};
+  GLuint m_VBO{};
+
+  GLint m_modelMatrixLoc{};
+  GLint m_colorLoc{};
+};
 ```
 
-Por outro lado, no segundo arquivos teremos as dimensões da plataforma e uma série de outras configurações envolvendo o EBO, VBO e VAO.
 
-
+Por fim, os arquivos camera.hpp e camera.cpp possuem as configrações da movimentação dentro do modelo 3D.
 ```c++
-std::array positions{
-      glm::vec2{+14.f, -2.f}, glm::vec2{+14.f, +2.f},
-      glm::vec2{-14.f, +2.f}, glm::vec2{-14.f, -2.f},
-      glm::vec2{+0.f, +2.f}
-      };
-  for (auto &position : positions) {
-    position /= glm::vec2{14.f, 14.f};
-  }
-  std::array const indices{0, 1, 2, 3, 4, 0, 3, 2, 1};
-```
-
-Os demais arquivos (main.cpp, window.hpp, balls.hpp e plarform.hpp), por sua vez, serão bem mais enxutos e serão responsáveis pela configuração do tamanho da janela, por exemplo.
-
-```c++
-window.setWindowSettings({
-        .width = 500,
-        .height = 500,
-        .showFPS = false,
-        .showFullscreenButton = false,
-        .title = "Atividade 2",
-    });
+ transform = glm::translate(transform, m_eye);
+  transform = glm::rotate(transform, -speed, m_up);
+  transform = glm::translate(transform, -m_eye);
 ```
 
 [Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade2/abcg/public/index.html) para jogar. 
