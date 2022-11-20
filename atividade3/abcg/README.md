@@ -25,31 +25,37 @@ Inicialmente, temos no arquivo main.cpp informações básicas como o tamanho da
         .title = "Confissão",
 ```
 
-Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode receber duas ações do usuário: ir para a direira e ir para a esquerda.
+Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. Uma vez executado, pode receber seis ações do usuário: ir para a direira. ir para a esquerda, ir para frente, ir para trás, rodar no sentido horário e rodar no sentido antihorário.
 
 ```c++
 void Window::onEvent(SDL_Event const &event) {
-  // Ações do teclado
   if (event.type == SDL_KEYDOWN) {
-    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
-      m_gameData.m_input.set(gsl::narrow<size_t>(Input::Left));
-    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
-      m_gameData.m_input.set(gsl::narrow<size_t>(Input::Right));
+    if (event.key.keysym.sym == SDLK_w)
+      m_dollySpeed = 1.0f;
+    if (event.key.keysym.sym == SDLK_s)
+      m_dollySpeed = -1.0f;
+    if (event.key.keysym.sym == SDLK_q)
+      m_panSpeed = -1.0f;
+    if (event.key.keysym.sym == SDLK_e)
+      m_panSpeed = 1.0f;
+    if (event.key.keysym.sym == SDLK_a)
+      m_truckSpeed = -1.0f;
+    if (event.key.keysym.sym == SDLK_d)
+      m_truckSpeed = 1.0f;
   }
-  if (event.type == SDL_KEYUP) {
-    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
-      m_gameData.m_input.reset(gsl::narrow<size_t>(Input::Left));
-    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
-      m_gameData.m_input.reset(gsl::narrow<size_t>(Input::Right));
-  }
-}
 ```
-Além disso, é neste arquivo onde encontramos a condição de vitória, ocorrida quando a bolha repousa sobre a plataforma.
+Além disso, é neste arquivo onde encontramos a inserção do modelo 3D da sala em que podemos caminhar.
 
 ```c++
-// Açao quando colide a bola e a plataforma
-    if (distance < m_platform.m_scale * 0.6f + asteroid.m_scale * 0.1f) {
-      m_gameData.m_state = State::Win;
+// Carregar modelo
+  loadModelFromFile(assetsPath + "room.obj");
+```
+
+```c++
+ glm::mat4 model{2.0f};
+  model = glm::translate(model, glm::vec3(-.8f, 0.0f, 0.0f));
+  model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0, 1, 0));
+  model = glm::scale(model, glm::vec3(0.65f));
 ```
 
 Os arquivos balls.cpp e platform.cpp são importantes por serem responsáveis por possuírem a composição da pltaforma e das bolhas, principais elementos do jogo. No primeiro arquivo, encontramos a configuração da quantidade de bolhas e sua velocidade/direção.
