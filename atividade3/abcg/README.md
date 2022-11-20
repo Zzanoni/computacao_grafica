@@ -6,13 +6,11 @@ RA: 11056816
 ![CONFISSÃO](https://user-images.githubusercontent.com/27233049/202924594-3094b435-55ce-4d2c-a574-b7a95241a669.png)
 
 
+## O que é?
+
+O programa construído, denominado de Confissão, consiste em um ambiente em 3D que remete a um ambiente inspirado em um confessionário.
+
 ## Funcionamento
-
-O jogo construído, denominado de 3 Bubbles, consiste na ideia de conseguir pegar uma bolha através de uma plataforma que se move horizontalmente.
-
-![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
-
-Sabendo disso, aparecem 3 bolhas na tela e o usuário precisa movimentar a plataforma, por meio das setas do teclado, até que alguma das bolhas caia na mesma.
 
 ## Implementação
 
