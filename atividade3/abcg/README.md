@@ -1,9 +1,10 @@
-# Computação Gráfica - Atividade 2
+# Computação Gráfica - Atividade 3
 
 Nome: Lucas Zanoni de Oliveira
 RA: 11056816
 
-![Bubbles](https://user-images.githubusercontent.com/27233049/198890613-5300ca1a-48b2-4b0e-8026-6d23fbbcd5cc.png)
+![CONFISSÃO](https://user-images.githubusercontent.com/27233049/202924594-3094b435-55ce-4d2c-a574-b7a95241a669.png)
+
 
 ## Funcionamento
 
