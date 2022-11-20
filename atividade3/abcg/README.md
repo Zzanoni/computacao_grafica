@@ -8,7 +8,7 @@ RA: 11056816
 
 ## O que é?
 
-O programa construído, denominado de Confissão, consiste em um ambiente em 3D que remete a um ambiente inspirado em um confessionário.
+O programa construído, denominado de Confissão, consiste em uma sala em 3D inspirada em um confessionário.
 
 ## Funcionamento
 
