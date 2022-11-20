@@ -8,7 +8,7 @@ RA: 11056816
 
 ## Funcionamento
 
-O programa construído, denominado de Confissão, consiste em uma sala em 3D inspirada em um confessionário, onde o usuário pode andar por ela.
+O programa construído, denominado de Confissão, consiste em uma sala em 3D inspirada em um confessionário, onde o usuário pode andar livremente por ela.
 
 ## Implementação
 
@@ -67,7 +67,7 @@ Os arquivos ground.cpp e ground.hpp são importantes por serem responsáveis pel
                                      {+0.5f, 0.0f, +0.5f}}};
 ```
 
-Por outro lado, no segundo arquivos temos a composição da classe relacionado.
+Por outro lado, no segundo arquivos temos a composição da classe relacionada.
 
 
 ```c++
