@@ -3,7 +3,7 @@
 Nome: Lucas Zanoni de Oliveira
 RA: 11056816
 
-![Bubbles](https://user-images.githubusercontent.com/27233049/198890613-5300ca1a-48b2-4b0e-8026-6d23fbbcd5cc.png)
+![storm cube](https://user-images.githubusercontent.com/27233049/206914958-d92987e2-8ac7-40bc-9f60-700cb7c725ad.png)
 
 ## Funcionamento
 
