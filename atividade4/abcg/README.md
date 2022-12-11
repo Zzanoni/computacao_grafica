@@ -66,15 +66,27 @@ Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funç
       m_truckSpeed = 1.0f;
   }
 ```
-:warning: Apesar de estar presente no código do window.cpp (além dos arquivos camera.cpp e camera.hpp), o funcionamento da movimentação lateral e frontal não funcionou como esperado.
+:warning: **Apesar de estar presente no código do window.cpp (além dos arquivos camera.cpp e camera.hpp), o funcionamento da movimentação lateral e frontal não funcionou como esperado**.
 
 Além disso, é neste arquivo onde encontramos o carregamento do objeto que, apesar de ser um arquivo .obj, foi construído manualmente tomando como base a [documentação](https://www.cs.cmu.edu/~mbz/personal/graphics/obj.html) relacionada.
 
 
 ```c++
-// Açao quando colide a bola e a plataforma
-    if (distance < m_platform.m_scale * 0.6f + asteroid.m_scale * 0.1f) {
-      m_gameData.m_state = State::Win;
+  // Carregamento do modelo 3d construido
+  loadModel(assetsPath + "planet.obj");
+```
+
+Por fim, no mesmo arquivo também está presente o carregamento do shader utilizado, denominado como thunder. Construído a partir dos modelos de shaders vistos no decorrer das aulas, o ideia deste shader é emular os efeitos luminosos de uma tempestade de raio, através do uso de refração e movimentação contínua o objeto.
+
+```c++
+  // Carregamento dos shaders utilizados
+  for (auto const &name : m_shaderNames) {
+    auto const path{assetsPath + "shaders/" + name};
+    auto const program{abcg::createOpenGLProgram(
+        {{.source = path + ".vert", .stage = abcg::ShaderStage::Vertex},
+         {.source = path + ".frag", .stage = abcg::ShaderStage::Fragment}})};
+    m_programs.push_back(program);
+  }
 ```
 
 Os arquivos balls.cpp e platform.cpp são importantes por serem responsáveis por possuírem a composição da pltaforma e das bolhas, principais elementos do jogo. No primeiro arquivo, encontramos a configuração da quantidade de bolhas e sua velocidade/direção.
