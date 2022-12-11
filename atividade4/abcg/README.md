@@ -139,4 +139,4 @@ Por fim, temos os arquivos camera.cpp e camera.hpp que seriam responsáveis pelo
   m_at += forward * speed;
 ```
 
-[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade4/abcg/public/index.html) para jogar. 
+[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade4/abcg/public/index.html) para acesssar a aplicação. 
