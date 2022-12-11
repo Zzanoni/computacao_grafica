@@ -9,9 +9,7 @@ RA: 11056816
 
 A aplicação construída, denominado de Storm Cube, consiste-se de um artefato cúbico presente no espaço que, em seu interior, possui uma tempestade de raios.
 
-![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
-
-Sabendo disso, aparecem 3 bolhas na tela e o usuário precisa movimentar a plataforma, por meio das setas do teclado, até que alguma das bolhas caia na mesma.
+Sabendo disso, a ideia de interação com o artefato é de girar o espaço em que se encontra, além de se movimentar no mesmo.
 
 ## Implementação
 
