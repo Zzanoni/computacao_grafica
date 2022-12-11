@@ -68,7 +68,8 @@ Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funç
 ```
 :warning: Apesar de estar presente no código do window.cpp (além dos arquivos camera.cpp e camera.hpp), o funcionamento da movimentação lateral e frontal não funcionou como esperado.
 
-Além disso, é neste arquivo onde encontramos a condição de vitória, ocorrida quando a bolha repousa sobre a plataforma.
+Além disso, é neste arquivo onde encontramos o carregamento do objeto que, apesar de ser um arquivo .obj, foi construído manualmente tomando como base a [documentação](https://www.cs.cmu.edu/~mbz/personal/graphics/obj.html) relacionada.
+
 
 ```c++
 // Açao quando colide a bola e a plataforma
