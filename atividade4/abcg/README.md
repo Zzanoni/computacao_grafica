@@ -115,47 +115,28 @@ Os arquivos trackball.hpp e trackball.cpp, são responsáveis, principalmente, p
     return;
   }
 ```
-
-Os arquivos balls.cpp e platform.cpp são importantes por serem responsáveis por possuírem a composição da pltaforma e das bolhas, principais elementos do jogo. No primeiro arquivo, encontramos a configuração da quantidade de bolhas e sua velocidade/direção.
+Em seguida temos os arquivos model.cpp e model.hpp, reponsáveis por calcular as normais e vértices do modelo, por exemplo, além do VBO, buffers e EBO.
 
 ```c++
-    //velocidade de rotacao
-  if (m_lastPosition == currentPosition) {
-    m_velocity *= m_lastTime.elapsed() > 0.01 ? 0.0 : 1.0;
-    return;
+  for (auto const offset : iter::range<int>(0, m_indices.size(), 3)) {
+    auto &a{m_vertices.at(m_indices.at(offset + 0))};
+    auto &b{m_vertices.at(m_indices.at(offset + 1))};
+    auto &c{m_vertices.at(m_indices.at(offset + 2))};
+    auto const edge1{b.position - a.position};
+    auto const edge2{c.position - b.position};
+    auto const normal{glm::cross(edge1, edge2)};
+    a.normal += normal;
+    b.normal += normal;
+    c.normal += normal;
+  }
   }
 ```
+Por fim, temos os arquivos camera.cpp e camera.hpp que seriam responsáveis pelo funcionamento do efeito de câmera utilizada como base para a interação com o modelo e espaço a partir do teclado, podendo se movimentar horizontalmente (A e D) e verticalmente (W e S), possuindo configurações como a velocidade de movimentação, entretanto não está funcionando corretamente.
 
 ```c++
-  glm::vec2 const direction{0.0f, -0.1f};
-  ball.m_velocity = glm::normalize(direction) / 4.0f;
+ // Movimentação
+  m_eye += forward * speed;
+  m_at += forward * speed;
 ```
 
-Por outro lado, no segundo arquivos teremos as dimensões da plataforma e uma série de outras configurações envolvendo o EBO, VBO e VAO.
-
-
-```c++
-std::array positions{
-      glm::vec2{+14.f, -2.f}, glm::vec2{+14.f, +2.f},
-      glm::vec2{-14.f, +2.f}, glm::vec2{-14.f, -2.f},
-      glm::vec2{+0.f, +2.f}
-      };
-  for (auto &position : positions) {
-    position /= glm::vec2{14.f, 14.f};
-  }
-  std::array const indices{0, 1, 2, 3, 4, 0, 3, 2, 1};
-```
-
-Os demais arquivos (main.cpp, window.hpp, balls.hpp e plarform.hpp), por sua vez, serão bem mais enxutos e serão responsáveis pela configuração do tamanho da janela, por exemplo.
-
-```c++
-window.setWindowSettings({
-        .width = 500,
-        .height = 500,
-        .showFPS = false,
-        .showFullscreenButton = false,
-        .title = "Atividade 2",
-    });
-```
-
-[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade2/abcg/public/index.html) para jogar. 
+[Clique aqui](https://zzanoni.github.io/computacao_grafica/atividade4/abcg/public/index.html) para jogar. 
