@@ -13,36 +13,61 @@ Sabendo disso, a ideia de interação com o artefato é de girar o espaço em qu
 
 ## Implementação
 
-Para a segunda atividade da matéria de Computação Gráfica da UFABC, foi utilizada a interface gráfica da biblioteca Dear ImGui, além da ABCg e do SDK Emscripten, conforme apresentado no decorrer das aulas ministradas.
+Para a quarta atividade da matéria de Computação Gráfica da UFABC, foi utilizada a interface gráfica da biblioteca Dear ImGui, além da ABCg, do SDK Emscripten e OpenGL conforme apresentado no decorrer das aulas ministradas.
 
-Para construção do programa, foram utilizadas configurações de janela e fonte similares aos exemplos vistos e testados em sala de aula, visto que o núcleo do jogo proposto permitia a manutenção do padrão. Adicionalmente, o código-fonte do jogo está dividido em oito arquivos: main.cpp, window.cpp, window.hpp, balls.hpp, balls.cpp, platform.hpp, platform.cpp e gamedata.hpp.
+Para construção do programa, foram utilizadas configurações de janela e fonte similares aos exemplos vistos e testados em sala de aula, visto que o núcleo do programa proposto permitia a manutenção do padrão. Adicionalmente, o código-fonte do jogo está dividido em nove arquivos: main.cpp, window.cpp, window.hpp, trackball.hpp, trackball.cpp, camera.hpp, camera.cpp, model.cpp e model.hpp.
 
-Inicialmente, temos no arquivo gamedata.hpp informações básicas como os possíveis estados do jogo (vitória e jogando) e as ações permitidas (direita e esquerda).
-
-```c++
-  enum class Input { Right, Left};
-  enum class State { Playing, Win };
-```
-
-Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode receber duas ações do usuário: ir para a direira e ir para a esquerda.
+Inicialmente, temos no arquivo main.cpp informações básicas da janela da aplicação e alguns de seus recursos, como FPS e título:
 
 ```c++
-void Window::onEvent(SDL_Event const &event) {
-  // Ações do teclado
-  if (event.type == SDL_KEYDOWN) {
-    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
-      m_gameData.m_input.set(gsl::narrow<size_t>(Input::Left));
-    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
-      m_gameData.m_input.set(gsl::narrow<size_t>(Input::Right));
-  }
-  if (event.type == SDL_KEYUP) {
-    if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
-      m_gameData.m_input.reset(gsl::narrow<size_t>(Input::Left));
-    if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
-      m_gameData.m_input.reset(gsl::narrow<size_t>(Input::Right));
-  }
-}
+  window.setWindowSettings({
+        .width = 1920,
+        .height = 1080,
+        .showFPS = false,
+        .showFullscreenButton=false,
+        .title = "Atividade 4", 
+    });
 ```
+
+Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode receber ações do usuário: rodar o espaço através do botão direito do mouse ou se movimentar pelo teclado (WASD):
+
+```c++
+// Movimentação via mouse
+  if (event.type == SDL_MOUSEMOTION) {
+    m_trackBallModel.mouseMove(mousePosition);
+    m_trackBallLight.mouseMove(mousePosition);
+  }
+  if (event.type == SDL_MOUSEBUTTONDOWN) {    
+    if (event.button.button == SDL_BUTTON_RIGHT) {
+      m_trackBallLight.mousePress(mousePosition);
+    }
+  }
+  if (event.type == SDL_MOUSEBUTTONUP) {
+    if (event.button.button == SDL_BUTTON_RIGHT) {
+      m_trackBallLight.mouseRelease(mousePosition);
+    }
+  }
+```
+
+```c++
+  // Movimentação via teclado
+    if (event.type == SDL_KEYDOWN) {
+    if (event.key.keysym.sym == SDLK_w)
+      m_dollySpeed = 1.0f;
+    if (event.key.keysym.sym == SDLK_s)
+      m_dollySpeed = -1.0f;
+    if (event.key.keysym.sym == SDLK_q)
+      m_panSpeed = -1.0f;
+    if (event.key.keysym.sym == SDLK_e)
+      m_panSpeed = 1.0f;
+    if (event.key.keysym.sym == SDLK_a)
+      m_truckSpeed = -1.0f;
+    if (event.key.keysym.sym == SDLK_d)
+      m_truckSpeed = 1.0f;
+  }
+```
+:warning: Apesar de estar presente no código do window.cpp (além dos arquivos camera.cpp e camera.hpp), o funcionamento da movimentação lateral e frontal não funcionou como esperado.
+
 Além disso, é neste arquivo onde encontramos a condição de vitória, ocorrida quando a bolha repousa sobre a plataforma.
 
 ```c++
