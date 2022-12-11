@@ -198,7 +198,6 @@ void Window::onPaintUI() {
   auto const assetsPath{abcg::Application::getAssetsPath()};
   fileDialogModel.SetPwd(assetsPath);
   fileDialogDiffuseMap.SetPwd(assetsPath + "/maps");
-  fileDialogNormalMap.SetPwd(assetsPath + "/maps");
 #endif
 
   //variaveis do modelo 3d
