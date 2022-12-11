@@ -62,9 +62,7 @@ Os arquivos ground.cpp e ground.hpp são importantes por serem responsáveis pel
 
 ```c++
 // Desenho dos blocos do piso
-  std::array<glm::vec3, 4> vertices{{{-0.5f, 0.0f, +0.5f},
-                                     {-0.5f, 0.0f, -0.5f},
-                                     {+0.5f, 0.0f, +0.5f}}};
+  std::array<glm::vec3, 4> vertices;
 ```
 
 Por outro lado, no segundo arquivos temos a composição da classe relacionada.
