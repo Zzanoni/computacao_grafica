@@ -7,7 +7,7 @@ RA: 11056816
 
 ## Funcionamento
 
-O jogo construído, denominado de 3 Bubbles, consiste na ideia de conseguir pegar uma bolha através de uma plataforma que se move horizontalmente.
+A aplicação construída, denominado de Storm Cube, consiste-se de um artefato cúbico presente no espaço que, em seu interior, possui uma tempestade de raios.
 
 ![image](https://user-images.githubusercontent.com/27233049/198890110-84166cd0-d366-46bf-8deb-6ed8d30136e0.png)
 
