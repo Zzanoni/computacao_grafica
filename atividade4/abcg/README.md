@@ -29,7 +29,7 @@ Inicialmente, temos no arquivo main.cpp informações básicas da janela da apli
     });
 ```
 
-Agora olhemos para o arquivo window.cpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode receber ações do usuário: rodar o espaço através do botão direito do mouse ou se movimentar pelo teclado (WASD):
+Agora olhemos para os arquivos window.cpp e window.hpp, onde estão presentes algumas das funções mais importantes para o devido funcionamento do programa. O jogo, uma vez executado, pode receber ações do usuário: rodar o espaço através do botão direito do mouse ou se movimentar pelo teclado (WASD):
 
 ```c++
 // Movimentação via mouse
@@ -76,7 +76,7 @@ Além disso, é neste arquivo onde encontramos o carregamento do objeto que, ape
   loadModel(assetsPath + "planet.obj");
 ```
 
-Por fim, no mesmo arquivo também está presente o carregamento do shader utilizado, denominado como thunder. Construído a partir dos modelos de shaders vistos no decorrer das aulas, o ideia deste shader é emular os efeitos luminosos de uma tempestade de raio, através do uso de refração e movimentação contínua o objeto.
+No mesmo arquivo também está presente o carregamento do shader utilizado, denominado como thunder. Construído a partir dos modelos de shaders vistos no decorrer das aulas, o ideia deste shader é emular os efeitos luminosos de uma tempestade de raio, através do uso de refração e movimentação contínua do objeto.
 
 ```c++
   // Carregamento dos shaders utilizados
@@ -88,11 +88,42 @@ Por fim, no mesmo arquivo também está presente o carregamento do shader utiliz
     m_programs.push_back(program);
   }
 ```
+```c++
+  // Shaders
+  std::vector<char const *> m_shaderNames{
+      "thunder"};
+```
+
+Por fim, temos o carregamento do shader utilizado no espaço cúbico que simula um espaço.  
+
+```c++
+ // Criação do cubo de fundo
+void Window::createSkybox() {
+  auto const assetsPath{abcg::Application::getAssetsPath()};
+  auto const path{assetsPath + "shaders/" + m_skyShaderName};
+  m_skyProgram = abcg::createOpenGLProgram(
+      {{.source = path + ".vert", .stage = abcg::ShaderStage::Vertex},
+       {.source = path + ".frag", .stage = abcg::ShaderStage::Fragment}});
+```
+
+Os arquivos trackball.hpp e trackball.cpp, são responsáveis, principalmente, por possibilitar a rotação do ambiente em que o objeto se encontra, ou seja, o cubo que emula o espaço, contendo variáveis como a velocidade de rotação.
+
+```c++
+    //velocidade de rotacao
+  if (m_lastPosition == currentPosition) {
+    m_velocity *= m_lastTime.elapsed() > 0.01 ? 0.0 : 1.0;
+    return;
+  }
+```
 
 Os arquivos balls.cpp e platform.cpp são importantes por serem responsáveis por possuírem a composição da pltaforma e das bolhas, principais elementos do jogo. No primeiro arquivo, encontramos a configuração da quantidade de bolhas e sua velocidade/direção.
 
 ```c++
-  m_balls.resize(3);
+    //velocidade de rotacao
+  if (m_lastPosition == currentPosition) {
+    m_velocity *= m_lastTime.elapsed() > 0.01 ? 0.0 : 1.0;
+    return;
+  }
 ```
 
 ```c++
